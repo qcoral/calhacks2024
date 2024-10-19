@@ -9,6 +9,10 @@ function Form() {
   const [teammates, setTeammates] = useState([{ name: '' }]);
   const navigate = useNavigate();
 
+  const capitalizeFirstLetter = (string: string) => {
+    return string.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   const handleFriendChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
     const newFriends = [...friends];
     newFriends[index].name = event.target.value;
@@ -32,15 +36,26 @@ function Form() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const formattedName = capitalizeFirstLetter(name);
+    const formattedLocation = capitalizeFirstLetter(location);
+    const formattedFriends = friends.map(friend => ({
+      ...friend,
+      name: capitalizeFirstLetter(friend.name)
+    }));
+    const formattedTeammates = teammates.map(teammate => ({
+      ...teammate,
+      name: capitalizeFirstLetter(teammate.name)
+    }));
+
     const data = {
-      name,
-      location,
-      friends,
-      teammates,
+      name: formattedName,
+      location: formattedLocation,
+      friends: formattedFriends,
+      teammates: formattedTeammates,
     };
 
     try {
-      const response = await fetch('https://calhacks11backend.vercel.app/calhacks', {
+      const response = await fetch('http://localhost:3000/calhacks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,32 +75,37 @@ function Form() {
 
   return (
     <div className="App">
-      <h1>Submit Your Information</h1>
+      <h2>THE CALHACKS NETWORKING SURVEY</h2>
+      <h4>For each item except location, please put full names!!</h4>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Name:
+            Full Name:
+            <div>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
+            </div>
           </label>
         </div>
         <div>
           <label>
-            Location:
+            Where you're from:
+            <div>
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               required
             />
+            </div>
           </label>
         </div>
         <div>
-          <label>Friends:</label>
+          <label>List all your friends at the event:</label>
           {friends.map((friend, index) => (
             <div key={index}>
               <input
@@ -101,7 +121,7 @@ function Form() {
           </button>
         </div>
         <div>
-          <label>Teammates:</label>
+          <label>List all your teammates at the event:</label>
           {teammates.map((teammate, index) => (
             <div key={index}>
               <input
@@ -118,6 +138,7 @@ function Form() {
         </div>
         <button type="submit">Submit</button>
       </form>
+      <p>(i am not responsible for any damages caused. this is unofficial)</p>
     </div>
   );
 }
@@ -125,7 +146,7 @@ function Form() {
 function ThankYou() {
   return (
     <div className="ThankYou">
-      <h1>Thanks for submitting!!</h1>
+      <h1>Thank You for Submitting!</h1>
     </div>
   );
 }

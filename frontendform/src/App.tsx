@@ -6,6 +6,7 @@ function Form() {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [friends, setFriends] = useState([{ name: '' }]);
+  const [age, setAge] = useState('');
   const [teammates, setTeammates] = useState([{ name: '' }]);
   const navigate = useNavigate();
 
@@ -50,8 +51,9 @@ function Form() {
     const data = {
       name: formattedName,
       location: formattedLocation,
+      age: parseInt(age, 10),
       friends: formattedFriends,
-      teammates: formattedTeammates,
+      interests: formattedTeammates,
     };
 
     try {
@@ -75,12 +77,13 @@ function Form() {
 
   return (
     <div className="App">
-      <h2>THE CALHACKS NETWORKING SURVEY</h2>
-      <h4>For each item except location, please put full names!!</h4>
+      <h2>THE HACKCLUB NETWORK SURVEY</h2>
+      <h4>I was going to print this out but ran out of paper, so I'm using hack clubbers instead!!</h4>
+      <p>For the handles, just use the letters without the @. For example, use msw or zrl, not @msw</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Full Name:
+            Slack handle:
             <div>
             <input
               type="text"
@@ -93,7 +96,7 @@ function Form() {
         </div>
         <div>
           <label>
-            Where you're from:
+            Where you're from!!:
             <div>
             <input
               type="text"
@@ -105,7 +108,18 @@ function Form() {
           </label>
         </div>
         <div>
-          <label>List all your friends at the event:</label>
+          <label>Your Age!:</label>
+          <div>
+            <input
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <label>List the slack handle of all your friends!!</label>
           {friends.map((friend, index) => (
             <div key={index}>
               <input
@@ -120,8 +134,10 @@ function Form() {
             Add Friend
           </button>
         </div>
+        <br></br>
         <div>
-          <label>List all your teammates at the event:</label>
+          <label>List all your interests:</label>
+            <p>(i.e hardware, programming, java, rust, c++, the avengers, etc)</p>
           {teammates.map((teammate, index) => (
             <div key={index}>
               <input
@@ -133,12 +149,12 @@ function Form() {
             </div>
           ))}
           <button type="button" onClick={handleAddTeammate}>
-            Add Teammate
+            Add interest
           </button>
         </div>
         <button type="submit">Submit</button>
       </form>
-      <p>(i am not responsible for any damages caused. this is unofficial)</p>
+      <p>(let's get this bread squad)</p>
     </div>
   );
 }
@@ -146,7 +162,7 @@ function Form() {
 function ThankYou() {
   return (
     <div className="ThankYou">
-      <h1>Thank You for Submitting!</h1>
+      <h1>Thanks for submitting!! - alexren</h1>
     </div>
   );
 }

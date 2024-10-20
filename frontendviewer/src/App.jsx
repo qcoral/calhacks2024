@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <h1>Alex's attempt to learn graph theory and make new connections</h1>
+      <h1>Map of friends in the Hack Club slack!!</h1>
       <div>
         <StaticGraph data={data} />
       </div>

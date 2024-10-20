@@ -11,7 +11,7 @@ function Form() {
   const navigate = useNavigate();
 
   const capitalizeFirstLetter = (string: string) => {
-    return string.replace(/\b\w/g, (char) => char.toUpperCase());
+    return string;
   };
 
   const handleFriendChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {

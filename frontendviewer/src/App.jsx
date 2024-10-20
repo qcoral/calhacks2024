@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:3000/graph");
+        const response = await fetch("https://calhacks11backend.vercel.app/graph");
         const json = await response.json();
         setData(json);
       } catch (error) {

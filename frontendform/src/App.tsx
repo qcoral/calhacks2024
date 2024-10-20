@@ -57,7 +57,7 @@ function Form() {
     };
 
     try {
-      const response = await fetch('https//calhacks11backend.vercel.app/calhacks', {
+      const response = await fetch('https://calhacks11backend.vercel.app/calhacks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
